@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         int currentHour = c.get(Calendar.HOUR_OF_DAY);
         int currentMinutes = c.get(Calendar.MINUTE);
+        int minutesToAdd = 30;
+        int hourToAdd = 1;
 
         boolean isPM = (currentHour >= 12);
        // String currentTime = (String.format("%02d:%02d %s", (currentHour == 12 || currentHour == 0) ? 12 : currentHour % 12, currentMinutes, isPM ? "PM" : "AM"));
@@ -52,9 +54,15 @@ public class MainActivity extends AppCompatActivity {
         //wakeUpButtons[0].setText(currentTime);
 
         for (int i = 0; i<wakeUpButtons.length;i++){
+            int tempMinutesLeftOver = 0;
+            if (currentMinutes<=29){
+                currentMinutes += 30;
+            } else {
+                currentHour++;
+            }
+            //currentHour += hourToAdd;
             String currentTime = (String.format("%02d:%02d %s", (currentHour == 12 || currentHour == 0) ? 12 : currentHour % 12, currentMinutes, isPM ? "PM" : "AM"));
             wakeUpButtons[i].setText(currentTime);
-
 
         }
 
