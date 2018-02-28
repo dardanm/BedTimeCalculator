@@ -70,24 +70,17 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), getString(R.string.time_picker));
     }
 
-    public void processTimePickerResult(int hourOfDay, int minute) {
+    public void processTimePickerResult(int currentHour, int currentMinutes) {
         //convert time elements into strings
-        String hour_string = Integer.toString(hourOfDay);
-        String minute_string = Integer.toString(minute);
+        String hour_string = Integer.toString(currentHour);
+        String minute_string = Integer.toString(currentMinutes);
 
-        boolean isPM = (hourOfDay >= 12);
-
-        String timeMessage = (String.format("%02d:%02d %s", (hourOfDay == 12 || hourOfDay == 0) ? 12 : hourOfDay % 12, minute, isPM ? "PM" : "AM"));
-
-        Toast.makeText(this, "Time: " + timeMessage, Toast.LENGTH_SHORT).show();
-
-        Button timePickerButton = (Button) findViewById(R.id.timePickerButton);
-        timePickerButton.setText(timeMessage);
+        boolean isPM = (currentHour >= 12);
 
 
         Calendar c = Calendar.getInstance();
-        int currentHour = hourOfDay;
-        int currentMinutes = minute;
+        //int currentHour = hourOfDay;
+        //int currentMinutes = minute;
 
         for (int i = 0; i<sleepButtons.length;i++){
             if (currentHour > 24){
@@ -105,16 +98,18 @@ public class MainActivity extends AppCompatActivity {
             isPM = (currentHour >= 12);
 
             String currentTime = (String.format("%02d:%02d %s", (currentHour == 12 || currentHour == 0) ? 12 : currentHour % 12, currentMinutes, isPM ? "PM" : "AM"));
-            sleepButtons[i].setText(currentHour + ":" + currentMinutes);
-            //sleepButtons[i].setText(currentTime);
-
-            if (currentHour > 24){
-                currentHour = 0;
-            }
+            //sleepButtons[i].setText(currentHour + ":" + currentMinutes);
+            sleepButtons[i].setText(currentTime);
         }
-
     }
 
     public void showTimeToGoToSleep(View view) {
     }
 }
+
+//    String timeMessage = (String.format("%02d:%02d %s", (hourOfDay == 12 || hourOfDay == 0) ? 12 : hourOfDay % 12, minute, isPM ? "PM" : "AM"));
+//
+//        Toast.makeText(this, "Time: " + timeMessage, Toast.LENGTH_SHORT).show();
+//
+//                Button timePickerButton = (Button) findViewById(R.id.timePickerButton);
+//                timePickerButton.setText(timeMessage);
