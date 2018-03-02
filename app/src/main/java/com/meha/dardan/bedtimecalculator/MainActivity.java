@@ -6,19 +6,22 @@ import android.view.View;
 
 import android.support.v4.app.DialogFragment;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Button timePickerButton;
-    private Button wakeUpButtons[] = new Button[9];
+    private Button wakeButtons[] = new Button[9];
     private Button sleepButtons[] = new Button[9];
+
+    private TextView textViewTitle;
+
+    private Calendar c = Calendar.getInstance();
+    private boolean isPM;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,53 +30,58 @@ public class MainActivity extends AppCompatActivity {
 
         initalizeButtons();
 
-        Calendar c = Calendar.getInstance();
-        int currentHour = c.get(Calendar.HOUR);
-        int currentMinutes = c.get(Calendar.MINUTE);
-        int a = c.get(Calendar.AM_PM);
+        textViewTitle.setText("If you go to sleep at " + timeMessage() + ",");
 
-        // FIRST TIME NEEDS TO START 15 MIN EXTRA
-        currentHour++;
-        currentMinutes += 45;
-        while(currentMinutes > 60){
-            currentMinutes -= 60;
-            currentHour++;
+        //
+        // Set default time for wake buttons at top
+        //
+
+        c.add(Calendar.HOUR_OF_DAY,1);
+        c.add(Calendar.MINUTE,45);
+
+        wakeButtons[0].setText(timeMessage());
+
+        for (int i = 1; i<wakeButtons.length;i++){
+            c.add(Calendar.HOUR_OF_DAY,1);
+            c.add(Calendar.MINUTE,30);
+            wakeButtons[i].setText(timeMessage());
         }
 
-        wakeUpButtons[0].setText(currentHour + ":" + currentMinutes);
-        //wakeUpButtons[0].setText(dateFormat.format(Date());
-        //wakeUpButtons[0].setText(currentTime);
+        //
+        // Set default time for sleep buttons at bottom
+        //
+        c.set(Calendar.HOUR_OF_DAY,8);
+        c.set(Calendar.MINUTE,0);
 
-        for (int i = 1; i<wakeUpButtons.length;i++){
-            currentHour++;
-            currentMinutes += 30;
-            while(currentMinutes > 60){
-                currentMinutes -= 60;
-                currentHour++;
-            }
-            if (currentHour == 24){
-                currentHour = 12;
-            }
-            if (currentHour == 13){
-                currentHour = 1;
-            } if (currentHour == 14){
-                currentHour = 2;
-            }
-            wakeUpButtons[i].setText(currentHour + ":" + currentMinutes);
-            //wakeUpButtons[i].setText(currentTime);
+        timePickerButton.setText(timeMessage());
+
+        c.add(Calendar.HOUR_OF_DAY,-1);
+        c.add(Calendar.MINUTE,-45);
+
+        sleepButtons[5].setText(timeMessage());
+
+        for (int i = 4; i>=0; i--){
+            c.add(Calendar.HOUR_OF_DAY,-1);
+            c.add(Calendar.MINUTE,-30);
+            sleepButtons[i].setText(timeMessage());
         }
+
     }
 
     public void initalizeButtons(){
-        wakeUpButtons[0] = (Button) findViewById(R.id.wakeUpButtonOne);
-        wakeUpButtons[1] = (Button) findViewById(R.id.wakeUpButtonTwo);
-        wakeUpButtons[2] = (Button) findViewById(R.id.wakeUpButtonThree);
-        wakeUpButtons[3] = (Button) findViewById(R.id.wakeUpButtonFour);
-        wakeUpButtons[4] = (Button) findViewById(R.id.wakeUpButtonFive);
-        wakeUpButtons[5] = (Button) findViewById(R.id.wakeUpButtonSix);
-        wakeUpButtons[6] = (Button) findViewById(R.id.wakeUpButtonSeven);
-        wakeUpButtons[7] = (Button) findViewById(R.id.wakeUpButtonEight);
-        wakeUpButtons[8] = (Button) findViewById(R.id.wakeUpButtonNine);
+        timePickerButton = (Button) findViewById(R.id.timePickerButton);
+
+        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+
+        wakeButtons[0] = (Button) findViewById(R.id.wakeButtonOne);
+        wakeButtons[1] = (Button) findViewById(R.id.wakeButtonTwo);
+        wakeButtons[2] = (Button) findViewById(R.id.wakeButtonThree);
+        wakeButtons[3] = (Button) findViewById(R.id.wakeButtonFour);
+        wakeButtons[4] = (Button) findViewById(R.id.wakeButtonFive);
+        wakeButtons[5] = (Button) findViewById(R.id.wakeButtonSix);
+        wakeButtons[6] = (Button) findViewById(R.id.wakeButtonSeven);
+        wakeButtons[7] = (Button) findViewById(R.id.wakeButtonEight);
+        wakeButtons[8] = (Button) findViewById(R.id.wakeButtonNine);
 
         sleepButtons[0] = (Button) findViewById(R.id.sleepButtonOne);
         sleepButtons[1] = (Button) findViewById(R.id.sleepButtonTwo);
@@ -81,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
         sleepButtons[3] = (Button) findViewById(R.id.sleepButtonFour);
         sleepButtons[4] = (Button) findViewById(R.id.sleepButtonFive);
         sleepButtons[5] = (Button) findViewById(R.id.sleepButtonSix);
-        sleepButtons[6] = (Button) findViewById(R.id.sleepButtonSeven);
-        sleepButtons[7] = (Button) findViewById(R.id.sleepButtonEight);
-        sleepButtons[8] = (Button) findViewById(R.id.sleepButtonNine);
     }
 
     public void showTimePickerDialog(View view) {
@@ -93,38 +98,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void processTimePickerResult(int currentHour, int currentMinutes) {
 
+        c.set(Calendar.HOUR_OF_DAY,currentHour);
+        c.set(Calendar.MINUTE,currentMinutes);
 
-        // FIRST TIME NEEDS TO START 15 MIN EXTRA
-        currentMinutes -= 15;
-        if (currentMinutes < 0){
-            currentMinutes = 60 - 15;
-            currentHour--;
-        }
+        timePickerButton.setText(timeMessage());
 
-        currentMinutes -= 30;
-        if (currentMinutes < 0){
-            currentMinutes = 60 - 30;
-            currentHour--;
-        }
-        currentHour--;
+        c.add(Calendar.HOUR_OF_DAY,-1);
+        c.add(Calendar.MINUTE,-45);
 
-        sleepButtons[0].setText(currentHour + ":" + currentMinutes);
-        //wakeUpButtons[0].setText(dateFormat.format(Date());
-        //wakeUpButtons[0].setText(currentTime);
+        sleepButtons[5].setText(timeMessage());
 
-        for (int i = 1; i<sleepButtons.length;i++){
-            currentMinutes -= 30;
-            if (currentMinutes < 0){
-                currentMinutes = 60 - 30;
-                currentHour--;
-            }
-            currentHour--;
-            sleepButtons[i].setText(currentHour + ":" + currentMinutes);
-            //sleepButtons[i].setText(currentTime);
+        for (int i = 4; i>=0; i--){
+            c.add(Calendar.HOUR_OF_DAY,-1);
+            c.add(Calendar.MINUTE,-30);
+            sleepButtons[i].setText(timeMessage());
         }
     }
 
-    public void showTimeToGoToSleep(View view) {
+    public String timeMessage(){
+        isPM = (c.get(Calendar.HOUR_OF_DAY) >= 12);
+        String timeMessage = (String.format("%02d:%02d %s", (c.get(Calendar.HOUR_OF_DAY) == 12 || c.get(Calendar.HOUR_OF_DAY) == 0) ? 12 : c.get(Calendar.HOUR_OF_DAY) % 12, c.get(Calendar.MINUTE), isPM ? "PM" : "AM"));
+        return timeMessage;
     }
 }
 
