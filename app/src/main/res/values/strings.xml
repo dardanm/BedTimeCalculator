@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">BedTimeCalculator</string>
-    <string name="top_title">I want to wake up at...</string>
+    <string name="app_name">Sleep Calculator</string>
+    <string name="top_title">If you go to sleep now at</string>
     <string name="button_text_time_to_sleep">When should I go to bed?</string>
-    <string name="bottom_text">If I go to sleep now...</string>
-    <string name="button_text_time_to_get_up">When should i get up?</string>
-    <string name="time_picker_text">12:05PM</string>
+    <string name="bottom_text">If you want to wake up at...</string>
+    <string name="button_text_time_to_get_up">I want to wake up at...</string>
+    <string name="time_picker_text">PICK TIME</string>
 
     <string name="time_picker">timePicker</string>
 
