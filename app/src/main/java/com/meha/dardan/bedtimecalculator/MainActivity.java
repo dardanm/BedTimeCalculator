@@ -58,37 +58,14 @@ public class MainActivity extends AppCompatActivity {
         c.add(Calendar.HOUR_OF_DAY,-1);
         c.add(Calendar.MINUTE,-45);
 
-        sleepButtons[5].setText(timeMessage());
+        sleepButtons[8].setText(timeMessage());
 
-        for (int i = 4; i>=0; i--){
+        for (int i = 7; i>=0; i--){
             c.add(Calendar.HOUR_OF_DAY,-1);
             c.add(Calendar.MINUTE,-30);
             sleepButtons[i].setText(timeMessage());
         }
 
-    }
-
-    public void initalizeButtons(){
-        timePickerButton = (Button) findViewById(R.id.timePickerButton);
-
-        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-
-        wakeButtons[0] = (Button) findViewById(R.id.wakeButtonOne);
-        wakeButtons[1] = (Button) findViewById(R.id.wakeButtonTwo);
-        wakeButtons[2] = (Button) findViewById(R.id.wakeButtonThree);
-        wakeButtons[3] = (Button) findViewById(R.id.wakeButtonFour);
-        wakeButtons[4] = (Button) findViewById(R.id.wakeButtonFive);
-        wakeButtons[5] = (Button) findViewById(R.id.wakeButtonSix);
-        wakeButtons[6] = (Button) findViewById(R.id.wakeButtonSeven);
-        wakeButtons[7] = (Button) findViewById(R.id.wakeButtonEight);
-        wakeButtons[8] = (Button) findViewById(R.id.wakeButtonNine);
-
-        sleepButtons[0] = (Button) findViewById(R.id.sleepButtonOne);
-        sleepButtons[1] = (Button) findViewById(R.id.sleepButtonTwo);
-        sleepButtons[2] = (Button) findViewById(R.id.sleepButtonThree);
-        sleepButtons[3] = (Button) findViewById(R.id.sleepButtonFour);
-        sleepButtons[4] = (Button) findViewById(R.id.sleepButtonFive);
-        sleepButtons[5] = (Button) findViewById(R.id.sleepButtonSix);
     }
 
     public void showTimePickerDialog(View view) {
@@ -119,6 +96,33 @@ public class MainActivity extends AppCompatActivity {
         isPM = (c.get(Calendar.HOUR_OF_DAY) >= 12);
         String timeMessage = (String.format("%02d:%02d %s", (c.get(Calendar.HOUR_OF_DAY) == 12 || c.get(Calendar.HOUR_OF_DAY) == 0) ? 12 : c.get(Calendar.HOUR_OF_DAY) % 12, c.get(Calendar.MINUTE), isPM ? "PM" : "AM"));
         return timeMessage;
+    }
+
+    public void initalizeButtons(){
+        timePickerButton = (Button) findViewById(R.id.timePickerButton);
+
+        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+
+        wakeButtons[0] = (Button) findViewById(R.id.wakeButtonOne);
+        wakeButtons[1] = (Button) findViewById(R.id.wakeButtonTwo);
+        wakeButtons[2] = (Button) findViewById(R.id.wakeButtonThree);
+        wakeButtons[3] = (Button) findViewById(R.id.wakeButtonFour);
+        wakeButtons[4] = (Button) findViewById(R.id.wakeButtonFive);
+        wakeButtons[5] = (Button) findViewById(R.id.wakeButtonSix);
+        wakeButtons[6] = (Button) findViewById(R.id.wakeButtonSeven);
+        wakeButtons[7] = (Button) findViewById(R.id.wakeButtonEight);
+        wakeButtons[8] = (Button) findViewById(R.id.wakeButtonNine);
+
+        sleepButtons[0] = (Button) findViewById(R.id.sleepButtonOne);
+        sleepButtons[1] = (Button) findViewById(R.id.sleepButtonTwo);
+        sleepButtons[2] = (Button) findViewById(R.id.sleepButtonThree);
+        sleepButtons[3] = (Button) findViewById(R.id.sleepButtonFour);
+        sleepButtons[4] = (Button) findViewById(R.id.sleepButtonFive);
+        sleepButtons[5] = (Button) findViewById(R.id.sleepButtonSix);
+        sleepButtons[6] = (Button) findViewById(R.id.sleepButtonSeven);
+        sleepButtons[7] = (Button) findViewById(R.id.sleepButtonEight);
+        sleepButtons[8] = (Button) findViewById(R.id.sleepButtonNine);
+
     }
 }
 
