@@ -14,6 +14,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     private Button timePickerButton;
+    private Button timePickerButtonTop;
     private Button wakeButtons[] = new Button[9];
     private Button sleepButtons[] = new Button[9];
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         initalizeButtons();
 
-        textViewTitle.setText("If you go to sleep at " + timeMessage() + ",");
+        timePickerButtonTop.setText(timeMessage());
 
         //
         // Set default time for wake buttons at top
@@ -83,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
         c.add(Calendar.HOUR_OF_DAY,-1);
         c.add(Calendar.MINUTE,-45);
 
-        sleepButtons[5].setText(timeMessage());
+        sleepButtons[8].setText(timeMessage());
 
-        for (int i = 4; i>=0; i--){
+        for (int i = 7; i>=0; i--){
             c.add(Calendar.HOUR_OF_DAY,-1);
             c.add(Calendar.MINUTE,-30);
             sleepButtons[i].setText(timeMessage());
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initalizeButtons(){
         timePickerButton = (Button) findViewById(R.id.timePickerButton);
+        timePickerButtonTop = (Button) findViewById(R.id.timePickerButtonTop);
 
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 
